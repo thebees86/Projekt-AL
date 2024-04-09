@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://be6ktrks5nr3y"]
 
-[ext_resource type="Script" path="res://scenes/player.gd" id="1_65hav"]
+[ext_resource type="Script" path="res://scenes/dreadnought.gd" id="1_65hav"]
 [ext_resource type="PackedScene" uid="uid://ccx4xordg2ucm" path="res://3D models/dreadnought.glb" id="1_if1do"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yfepa"]
@@ -17,3 +17,6 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.689819, 0.143494)
 shape = SubResource("BoxShape3D_yfepa")
+
+[node name="muzzle_0" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.225416, 0.301461, -1.53631)

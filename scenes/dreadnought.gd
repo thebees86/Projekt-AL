@@ -5,8 +5,9 @@ const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+#var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+@export var Shell : PackedScene
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -33,5 +34,9 @@ func _physics_process(delta):
 	
 	var is_firing = Input.is_action_just_pressed("fire")
 	if(is_firing):
-		print("FIRE!!!")
+		fire()
 	
+func fire():
+	var s = Shell.instantiate()
+	add_child(s)
+	s.transform = $muzzle_0

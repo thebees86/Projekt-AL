@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ds4ppyj3udmm0"]
 
-[ext_resource type="PackedScene" uid="uid://be6ktrks5nr3y" path="res://scenes/player.tscn" id="1_alggj"]
+[ext_resource type="PackedScene" uid="uid://be6ktrks5nr3y" path="res://scenes/dreadnought.tscn" id="1_alggj"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ya571"]
 
@@ -16,4 +16,9 @@ transform = Transform3D(-0.0930314, 0.960652, 0.261711, -0.557187, -0.26807, 0.7
 transform = Transform3D(200, 0, 0, 0, 200, 0, 0, 0, 200, 0, 0, 0)
 mesh = SubResource("PlaneMesh_ya571")
 
-[node name="CharacterBody3D" parent="." instance=ExtResource("1_alggj")]
+[node name="playerDreadnought" parent="." instance=ExtResource("1_alggj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.3236, 0, 0)
+
+[node name="enemyDreadnought" parent="." instance=ExtResource("1_alggj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.9977, 0, 0)
+script = null
