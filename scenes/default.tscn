@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://ds4ppyj3udmm0"]
-
-[ext_resource type="PackedScene" uid="uid://ccx4xordg2ucm" path="res://3D models/dreadnought.glb" id="1_bknbw"]
-
-[node name="dreadnought" type="Node3D"]
-
-[node name="blockbench_export" parent="." instance=ExtResource("1_bknbw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.168439, -1.19209e-07, -0.519844)
