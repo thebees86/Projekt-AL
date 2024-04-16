@@ -7,7 +7,7 @@
 [node name="Node3D" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -3.64575, 17.0209, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -3.64575, 14.3662, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.0930314, 0.960652, 0.261711, -0.557187, -0.26807, 0.785927, 0.825159, -0.0727062, 0.560202, 5.38999, 17.3829, 10.6346)
@@ -20,5 +20,5 @@ mesh = SubResource("PlaneMesh_ya571")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.3236, 0, 0)
 
 [node name="enemyDreadnought" parent="." instance=ExtResource("1_alggj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.9977, 0, 0)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 13.9977, 0, 0)
 script = null

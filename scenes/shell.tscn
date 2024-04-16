@@ -1,20 +1,18 @@
 [gd_scene load_steps=4 format=3 uid="uid://dj8uht10yq87"]
 
+[ext_resource type="Script" path="res://scenes/shell.gd" id="1_1bgcb"]
 [ext_resource type="PackedScene" uid="uid://boly0qyowtgrh" path="res://3D models/shell.glb" id="1_42ei7"]
-[ext_resource type="Script" path="res://scenes/RigidBody3D.gd" id="1_t3fsp"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_b1vov"]
 height = 0.190545
 radius = 0.0528762
 
-[node name="Node3D" type="Node3D"]
-
-[node name="RigidBody3D" type="RigidBody3D" parent="."]
+[node name="Projectile" type="RigidBody3D"]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
-script = ExtResource("1_t3fsp")
+script = ExtResource("1_1bgcb")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+[node name="projectile_collision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0954727, 0)
 shape = SubResource("CylinderShape3D_b1vov")
 
-[node name="blockbench_export" parent="RigidBody3D" instance=ExtResource("1_42ei7")]
+[node name="projectile_model" parent="." instance=ExtResource("1_42ei7")]

@@ -2,22 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyqvw4cb77ke2"
-path.s3tc="res://.godot/imported/dreadnought_0.png-82b41cb1ebf5ab860688d09dde7177dc.s3tc.ctex"
+uid="uid://60e53vxhm1q3"
+path="res://.godot/imported/dreadnought_0.png-82b41cb1ebf5ab860688d09dde7177dc.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
-generator_parameters={}
 
 [deps]
 
 source_file="res://3D models/dreadnought_0.png"
-dest_files=["res://.godot/imported/dreadnought_0.png-82b41cb1ebf5ab860688d09dde7177dc.s3tc.ctex"]
+dest_files=["res://.godot/imported/dreadnought_0.png-82b41cb1ebf5ab860688d09dde7177dc.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
