@@ -1,10 +1,8 @@
 extends RigidBody3D
 
-const VELOCITY = 25
-
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-#var gravity = 0
-var velocity = Vector3(25, 10, 0)
+#var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+var gravity = 3
+var velocity = Vector3(20, 10, 0)
 var rot_velocity = Vector3(0, 0, 0)
 
 @onready
