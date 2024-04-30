@@ -11,6 +11,7 @@ var target_position
 @export var projectile: PackedScene
 @export var model: PackedScene
 
+
 func _ready():
 	firing_positions = $blockbench_export/Node/dreadnought/primary_weapons.find_children("*", "Marker3D", true)
 	firing_timer = $FiringTimer
@@ -33,19 +34,21 @@ func _physics_process(delta):
 
 	move_and_slide()
 	
-	##Aim the turrets
-	for turret in $blockbench_export/Node/dreadnought/primary_weapons.get_children():
-
-		var turret_position3D = turret.global_position
-		#var target_position = Vector3(turret_position3D.x-mouse_position3D.x, 0, turret_position3D.z-mouse_position3D.z)
-		#print(turret_position3D)
-		target_position = $"../enemyDreadnought".global_position
-		
-		#replace this with a function call that takes min and max into account
-		turret.look_at(target_position, Vector3(0,1,0))
-		turret.rotate(Vector3(0,1,0), deg_to_rad(180))
 	
-	if firing_timer.is_stopped():
+	##Aim the turrets
+	if target_position != null:
+		for turret in $blockbench_export/Node/dreadnought/primary_weapons.get_children():
+
+			var turret_position3D = turret.global_position
+			#var target_position = Vector3(turret_position3D.x-mouse_position3D.x, 0, turret_position3D.z-mouse_position3D.z)
+			#print(turret_position3D)
+			#target_position = $"../enemyDreadnought".global_position
+			
+			#replace this with a function call that takes min and max into account
+			turret.look_at(target_position, Vector3(0,1,0))
+			turret.rotate(Vector3(0,1,0), deg_to_rad(180))
+	
+	if firing_timer.is_stopped() && target_position != null:
 		fire()
 		firing_timer.start(RELOAD_TIME)
 	
@@ -54,5 +57,13 @@ func fire():
 		var shell = projectile.instantiate()
 		shell.global_transform = emitter.global_transform
 		shell.rotation = emitter.rotation
+		
+		#calculate initial launch angle
+		var range = emitter.position.distance_to(target_position)
+		var velocity = shell.launch_vel
+		var launch_angle = asin((range * 3)/pow(velocity, 2))/2
+		print(launch_angle)
+		shell.rotate(Vector3(1,0,0), launch_angle)
+		
 		owner.add_child(shell)
 	print("FIRE!!!")

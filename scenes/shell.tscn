@@ -16,3 +16,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0954727, 0)
 shape = SubResource("CylinderShape3D_b1vov")
 
 [node name="projectile_model" parent="." instance=ExtResource("1_42ei7")]
+
+[node name="noclip_timer" type="Timer" parent="."]

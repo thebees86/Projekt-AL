@@ -1,10 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://ds4ppyj3udmm0"]
+[gd_scene load_steps=6 format=3 uid="uid://ds4ppyj3udmm0"]
 
 [ext_resource type="PackedScene" uid="uid://be6ktrks5nr3y" path="res://scenes/dreadnought.tscn" id="1_alggj"]
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_dwxc1"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_syocn"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ya571"]
 
+[sub_resource type="Curve3D" id="Curve3D_bx1c2"]
+
 [node name="Node3D" type="Node3D"]
+script = ExtResource("1_dwxc1")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -3.64575, 14.3662, 0)
@@ -12,9 +18,15 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -3.645
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.0930314, 0.960652, 0.261711, -0.557187, -0.26807, 0.785927, 0.825159, -0.0727062, 0.560202, 5.38999, 17.3829, 10.6346)
 
-[node name="water" type="MeshInstance3D" parent="."]
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(200, 0, 0, 0, 200, 0, 0, 0, 200, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_syocn")
+
+[node name="water" type="MeshInstance3D" parent="Area3D/CollisionShape3D"]
 mesh = SubResource("PlaneMesh_ya571")
+skeleton = NodePath("../../..")
 
 [node name="playerDreadnought" parent="." instance=ExtResource("1_alggj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.3236, 0, 0)
@@ -22,3 +34,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.3236, 0, 0)
 [node name="enemyDreadnought" parent="." instance=ExtResource("1_alggj")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 13.9977, 0, 0)
 script = null
+
+[node name="path" type="Path3D" parent="."]
+curve = SubResource("Curve3D_bx1c2")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="path"]
+use_model_front = true
+loop = false
+
+[connection signal="input_event" from="Area3D" to="." method="_on_area_3d_input_event"]
+[connection signal="input_event" from="playerDreadnought" to="." method="_on_player_dreadnought_input_event"]
+[connection signal="input_event" from="enemyDreadnought" to="." method="_on_enemy_dreadnought_input_event"]
