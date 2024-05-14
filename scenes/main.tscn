@@ -1,11 +1,34 @@
-[gd_scene load_steps=6 format=3 uid="uid://ds4ppyj3udmm0"]
+[gd_scene load_steps=12 format=3 uid="uid://ds4ppyj3udmm0"]
 
 [ext_resource type="PackedScene" uid="uid://be6ktrks5nr3y" path="res://scenes/dreadnought.tscn" id="1_alggj"]
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_dwxc1"]
+[ext_resource type="Shader" path="res://scenes/water.gdshader" id="2_dkq0c"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_syocn"]
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_o8klr"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_s3vao"]
+noise = SubResource("FastNoiseLite_o8klr")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ptew4"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2sbgi"]
+as_normal_map = true
+noise = SubResource("FastNoiseLite_ptew4")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_njwuc"]
+render_priority = 0
+shader = ExtResource("2_dkq0c")
+shader_parameter/height_scale = 0.5
+shader_parameter/noise = SubResource("NoiseTexture2D_s3vao")
+shader_parameter/normalmap = SubResource("NoiseTexture2D_2sbgi")
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_ya571"]
+material = SubResource("ShaderMaterial_njwuc")
+size = Vector2(10, 10)
+subdivide_width = 1000
+subdivide_depth = 1000
 
 [sub_resource type="Curve3D" id="Curve3D_bx1c2"]
 
@@ -13,10 +36,11 @@
 script = ExtResource("1_dwxc1")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -3.64575, 14.3662, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 40, 338.49, 25)
+fov = 95.1
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.0930314, 0.960652, 0.261711, -0.557187, -0.26807, 0.785927, 0.825159, -0.0727062, 0.560202, 5.38999, 17.3829, 10.6346)
+transform = Transform3D(-0.0930314, 0.960652, 0.261711, -0.557187, -0.26807, 0.785927, 0.825159, -0.0727063, 0.560202, -103.587, 489.912, -26.3257)
 
 [node name="Area3D" type="Area3D" parent="."]
 
@@ -29,13 +53,14 @@ mesh = SubResource("PlaneMesh_ya571")
 skeleton = NodePath("../../..")
 
 [node name="playerDreadnought" parent="." instance=ExtResource("1_alggj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.3236, 0, 0)
+transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, -567.057, 3.42359, 0)
 
 [node name="enemyDreadnought" parent="." instance=ExtResource("1_alggj")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 13.9977, 0, 0)
+transform = Transform3D(-30, 0, -4.52987e-06, 0, 30, 0, 4.52987e-06, 0, -30, 552.604, 3.75569, 0)
 script = null
 
 [node name="path" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 44.3268, 0)
 curve = SubResource("Curve3D_bx1c2")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="path"]

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://ccx4xordg2ucm" path="res://3D models/dreadnought.glb" id="1_enchn"]
 
-[node name="blockbench_export" instance=ExtResource("1_enchn")]
+[node name="blockbench_export2" instance=ExtResource("1_enchn")]
 
 [node name="Muzzle1" type="Marker3D" parent="Node/dreadnought/primary_weapons/A_turret" index="31"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0639727, 0, 0.47736)

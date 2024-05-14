@@ -61,9 +61,10 @@ func fire():
 		#calculate initial launch angle
 		var range = emitter.position.distance_to(target_position)
 		var velocity = shell.launch_vel
-		var launch_angle = asin((range * 3)/pow(velocity, 2))/2
-		print(launch_angle)
+		var launch_angle = asin((range * shell.gravity)/pow(velocity, 2))/2
 		shell.rotate(Vector3(1,0,0), launch_angle)
 		
 		owner.add_child(shell)
+		
+		
 	print("FIRE!!!")

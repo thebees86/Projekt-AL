@@ -19,6 +19,11 @@ config/icon="res://icon.svg"
 
 file_logging/enable_file_logging=true
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/project-time-tracker/plugin.cfg")
@@ -49,3 +54,26 @@ target_deselect={
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+
+[shader_globals]
+
+diffuse_curve={
+"type": "sampler2D",
+"value": ""
+}
+specular_smoothness={
+"type": "float",
+"value": 0.05
+}
+fresnel_smoothness={
+"type": "float",
+"value": 0.05
+}
+outline_width={
+"type": "float",
+"value": 4.0
+}
+outline_color={
+"type": "color",
+"value": Color(0, 0, 0, 1)
+}
