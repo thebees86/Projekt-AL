@@ -27,20 +27,22 @@ shader_parameter/normalmap = SubResource("NoiseTexture2D_2sbgi")
 [sub_resource type="PlaneMesh" id="PlaneMesh_ya571"]
 material = SubResource("ShaderMaterial_njwuc")
 size = Vector2(10, 10)
-subdivide_width = 1000
-subdivide_depth = 1000
+subdivide_width = 2000
+subdivide_depth = 2000
 
-[sub_resource type="Curve3D" id="Curve3D_bx1c2"]
+[sub_resource type="Curve3D" id="Curve3D_0abis"]
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_dwxc1")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 40, 338.49, 25)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 40, 338.49, -29.2638)
 fov = 95.1
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.0930314, 0.960652, 0.261711, -0.557187, -0.26807, 0.785927, 0.825159, -0.0727063, 0.560202, -103.587, 489.912, -26.3257)
+transform = Transform3D(-0.0930314, 0.960652, 0.261711, -0.557187, -0.26807, 0.785927, 0.825159, -0.0727064, 0.560202, 376.508, 489.912, -26.3257)
+light_angular_distance = 0.5
+shadow_enabled = true
 
 [node name="Area3D" type="Area3D" parent="."]
 
@@ -59,13 +61,10 @@ transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, -567.057, 3.42359, 0)
 transform = Transform3D(-30, 0, -4.52987e-06, 0, 30, 0, 4.52987e-06, 0, -30, 552.604, 3.75569, 0)
 script = null
 
-[node name="path" type="Path3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 44.3268, 0)
-curve = SubResource("Curve3D_bx1c2")
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_0abis")
 
-[node name="PathFollow3D" type="PathFollow3D" parent="path"]
-use_model_front = true
-loop = false
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
 
 [connection signal="input_event" from="Area3D" to="." method="_on_area_3d_input_event"]
 [connection signal="input_event" from="playerDreadnought" to="." method="_on_player_dreadnought_input_event"]

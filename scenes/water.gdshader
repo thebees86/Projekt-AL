@@ -4,15 +4,15 @@ render_mode specular_toon;
 
 uniform sampler2D noise;
 uniform sampler2D normalmap;
-uniform float height_scale = 0.05;
+uniform float height_scale = 0.03;
 
 varying vec2 tex_position;
 
 
 float wave(vec2 position) {
 	position += texture(noise, position / 5.0).x * 2.0 - 1.0;
-	vec2 wv = 1.0 - abs(sin(position)) * 0.9;
-	return pow(1.0 - pow(wv.x * wv.y, 0.5), 10.0);
+	vec2 wv = (1.0 - abs(sin(position)) * 0.9);
+	return pow(1.0 - pow(wv.x * wv.y, 0.5), 7.0);
 }
 
 float height(vec2 position, float time) {

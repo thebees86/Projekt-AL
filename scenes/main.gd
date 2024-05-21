@@ -8,33 +8,38 @@ var destination
 var curve_point
 var curve_distance = 300
 
-var target
+var target_position
 var selected_player_ship
 
 
+#func _on_area_3d_input_event(camera, event, position, normal, shape_idx):
+	#if(event.is_action_pressed("mouse_left")):
+		#if(selected_player_ship == null):
+			#print("Select a ship first")
+		#else:
+			#ready_to_move = false
+			#path_follow.progress_ratio = 0
+			#path.curve.clear_points()
+			#destination = position
+			#
+			#curve_point = Vector3(curve_distance * sin(-selected_player_ship.rotation.y) + selected_player_ship.position.x, 0, curve_distance * cos(-selected_player_ship.rotation.y) + selected_player_ship.position.z)
+			#
+			#path.curve.add_point(selected_player_ship.position)
+			#path.curve.add_point(destination, curve_point - destination)
+			#path.curve.add_point(destination)
+			#ready_to_move = true
+
 func _on_area_3d_input_event(camera, event, position, normal, shape_idx):
 	if(event.is_action_pressed("mouse_left")):
-		if(selected_player_ship == null):
-			print("Select a ship first")
-		else:
-			ready_to_move = false
-			path_follow.progress_ratio = 0
-			path.curve.clear_points()
-			destination = position
-			
-			#curve_point = Vector3(curve_distance * sin(-selected_player_ship.rotation.y) + selected_player_ship.position.x, 0, curve_distance * cos(-selected_player_ship.rotation.y) + selected_player_ship.position.z)
-			
-			path.curve.add_point(selected_player_ship.position)
-			#path.curve.add_point(destination, curve_point - destination)
-			path.curve.add_point(destination)
-			ready_to_move = true
-
+		target_position = position
+		if selected_player_ship != null:
+			selected_player_ship.target_position = target_position
 
 func _on_enemy_dreadnought_input_event(camera, event, position, normal, shape_idx):
 	if(event.is_action_pressed("mouse_left")):
-		target = $enemyDreadnought
+		target_position = $enemyDreadnought.position
 		if selected_player_ship != null:
-			selected_player_ship.target_position = target.position
+			selected_player_ship.target_position = target_position
 
 
 func _on_player_dreadnought_input_event(camera, event, position, normal, shape_idx):
@@ -47,4 +52,3 @@ func _physics_process(delta):
 		selected_player_ship.rotation.y = path_follow.rotation.y
 		if path_follow.progress_ratio + 0.2 * delta < 1:
 			path_follow.progress_ratio +=  0.2 * delta
-		

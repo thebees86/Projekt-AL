@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://c645o77oyvpd"]
+
+[node name="GPUParticles3D" type="GPUParticles3D"]
