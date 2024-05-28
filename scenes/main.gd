@@ -1,7 +1,7 @@
 extends Node3D
 
 @onready var path = $path
-@onready var path_follow = $path/PathFollow3D
+@onready var path_follow = $path_follow
 
 var ready_to_move = false
 var destination
@@ -9,8 +9,9 @@ var curve_point
 var curve_distance = 300
 
 var target_position
-var selected_player_ship
+@onready var selected_player_ship = $playerDreadnought
 
+var shell_flight_paths = []
 
 #func _on_area_3d_input_event(camera, event, position, normal, shape_idx):
 	#if(event.is_action_pressed("mouse_left")):
@@ -45,6 +46,13 @@ func _on_enemy_dreadnought_input_event(camera, event, position, normal, shape_id
 func _on_player_dreadnought_input_event(camera, event, position, normal, shape_idx):
 	if(event.is_action_pressed("mouse_left")):
 		selected_player_ship = $playerDreadnought
+		
+func _on_player_dreadnought_shell_fired(shell, flight_path):
+	shell.scale = Vector3(10, 10, 10)
+	print(shell.is_node_ready())
+	flight_path.add_child(PathFollow3D.new())
+	flight_path.get_child(0).add_child(shell)
+	shell_flight_paths.push_back(flight_path)
 
 func _physics_process(delta):
 	if ready_to_move: #Replace this with a state machine on the ship itself
@@ -52,3 +60,13 @@ func _physics_process(delta):
 		selected_player_ship.rotation.y = path_follow.rotation.y
 		if path_follow.progress_ratio + 0.2 * delta < 1:
 			path_follow.progress_ratio +=  0.2 * delta
+	
+	for path in shell_flight_paths:
+		var shell_path_follow = path.get_child(0)
+		shell_path_follow.position = path.position
+		var shell = shell_path_follow.get_child(0)
+		shell.position = shell_path_follow.position
+		shell.rotation = shell_path_follow.rotation
+		#print(shell.position)
+		if shell_path_follow.progress_ratio + 0.05 * delta < 1:
+			shell_path_follow.progress_ratio += 0.05 * delta

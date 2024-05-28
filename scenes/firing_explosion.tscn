@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dyl4gwnqimck7"]
+[gd_scene load_steps=13 format=3 uid="uid://dyl4gwnqimck7"]
 
 [ext_resource type="Script" path="res://scenes/firing_explosion.gd" id="1_h0h7x"]
 [ext_resource type="AudioStream" uid="uid://bsu644fejelyh" path="res://firing_sfx.mp3" id="2_yr2p7"]
@@ -10,6 +10,18 @@ point_count = 2
 [sub_resource type="CurveTexture" id="CurveTexture_lrlod"]
 curve = SubResource("Curve_7frmp")
 
+[sub_resource type="Curve" id="Curve_eveew"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_q010n"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.118644, 1), 0.0, 0.0, 0, 0, Vector2(0.262712, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_7l6sn"]
+curve_x = SubResource("Curve_eveew")
+curve_z = SubResource("Curve_q010n")
+
 [sub_resource type="Curve" id="Curve_2roqa"]
 _data = [Vector2(0.0507246, 0.0659341), 0.0, 1.4292, 0, 0, Vector2(0.122172, 0.868132), 0.703007, 0.703007, 0, 0, Vector2(0.99999, 1), 0.0, 0.0, 0, 0]
 point_count = 3
@@ -18,13 +30,14 @@ point_count = 3
 curve = SubResource("Curve_2roqa")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mjqkd"]
-emission_shape = 1
-emission_sphere_radius = 1.0
 direction = Vector3(1, 1, 1)
 spread = 0.0
 flatness = 1.0
 initial_velocity_min = 0.1
 initial_velocity_max = 0.3
+directional_velocity_min = 0.0
+directional_velocity_max = 10.0
+directional_velocity_curve = SubResource("CurveXYZTexture_7l6sn")
 gravity = Vector3(0, 0, 0)
 scale_min = 10.0
 scale_max = 20.0
@@ -45,10 +58,8 @@ rings = 3
 script = ExtResource("1_h0h7x")
 
 [node name="Moke" type="GPUParticles3D" parent="."]
-emitting = false
-amount = 32
+amount = 12
 lifetime = 5.0
-one_shot = true
 explosiveness = 1.0
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_mjqkd")

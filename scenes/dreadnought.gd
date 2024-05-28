@@ -12,10 +12,11 @@ var target_position
 
 var random
 
-@export var projectile: PackedScene
+signal shell_fired(shell, flight_path)
+
 @export var model: PackedScene
 @export var explosion_fx: PackedScene
-
+@export var projectile: PackedScene
 
 func _ready():
 	firing_positions = $blockbench_export/Node/dreadnought/primary_weapons.find_children("*", "Marker3D", true)
@@ -39,7 +40,7 @@ func _physics_process(delta):
 		#velocity.x = move_toward(velocity.x, 0, SPEED)
 		#velocity.z = move_toward(velocity.z, 0, SPEED)
 
-	move_and_slide()
+	#move_and_slide()
 	
 	
 	##Aim the turrets
@@ -60,40 +61,26 @@ func _physics_process(delta):
 		firing_timer.start(RELOAD_TIME)
 	
 func fire():
-	#for emitter in firing_positions:
-		# Maybe re-add this in the future?
-		#var shell = projectile.instantiate()
-		#shell.global_transform = emitter.global_transform
-		#shell.rotation = emitter.rotation
-		
-		#calculate initial launch angle
-		#var range = emitter.position.distance_to(target_position)
-		#var velocity = shell.launch_vel
-		#var launch_angle = asin((range * shell.gravity)/pow(velocity, 2))/2
-		#shell.rotate(Vector3(1,0,0), launch_angle)
-		
-		#owner.add_child(shell)
 	for emitter in firing_positions:
 		# Calculate range, with dispersion and targeting inaccuracy
-		var shell = projectile.instantiate()
+		var shell = load("res://scenes/shell.tscn").instantiate()
+
 		
 		var shell_destination = target_position
 		var midpoint = emitter.global_position.lerp(target_position, 0.5)
 		midpoint.y += emitter.global_position.distance_to(target_position) / 4
 		
-		shell.flight_path = Path3D.new()
-		shell.flight_path.curve = Curve3D.new()
-		shell.flight_path.curve.add_point(emitter.global_position)
-		shell.flight_path.curve.add_point(midpoint)
-		shell.flight_path.curve.add_point(shell_destination)
+		var flight_path = Path3D.new()
+		flight_path.position = emitter.global_position
+		flight_path.curve = Curve3D.new()
+		flight_path.curve.add_point(emitter.global_position)
+		flight_path.curve.add_point(midpoint)
+		flight_path.curve.add_point(shell_destination)
+		
+		shell_fired.emit(shell, flight_path)
 		
 		var fx = explosion_fx.instantiate()
-		
 		emitter.add_child(fx)
 		fx.explode()
-		
-		owner.add_child(shell)
-		shell.fire()
-		print(shell.global_position)
 		
 	print("FIRE!!!")
